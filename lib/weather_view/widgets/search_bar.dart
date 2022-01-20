@@ -24,6 +24,7 @@ class SearchBar extends StatelessWidget {
           children: [
             Expanded(
               child: TextFormField(
+                key: const Key('searchBarKey'),
                 initialValue: state.location?.title,
                 style: theme.textTheme.headline6,
                 keyboardType: TextInputType.text,
