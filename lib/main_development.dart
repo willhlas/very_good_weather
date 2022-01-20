@@ -9,5 +9,7 @@ import 'package:very_good_weather/app/app.dart';
 import 'package:very_good_weather/bootstrap.dart';
 
 void main() {
-  bootstrap(() => const App());
+  bootstrap((weatherRepository) => VeryGoodWeatherApp(
+    weatherRepository: weatherRepository,
+  ),);
 }

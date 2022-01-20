@@ -1,5 +1,5 @@
 name: very_good_weather
-description: A Very Good Project created by Very Good CLI.
+description: A Very Good Weather App created by Very Good CLI.
 version: 1.0.0+1
 publish_to: none
 
@@ -8,20 +8,31 @@ environment:
 
 dependencies:
   bloc: ^8.0.2
+  easy_debounce: ^2.0.2+1
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  flutter_localizations:
-    sdk: flutter
+  flutter_svg: ^1.0.1
+  google_fonts: ^2.2.0
+  hydrated_bloc: ^8.0.0
   intl: ^0.17.0
+  json_annotation: ^4.4.0
+  path_provider: ^2.0.8
+  weather_icons: ^3.0.0
 
 dev_dependencies:
   bloc_test: ^9.0.2
+  build_runner: ^2.1.7
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.1.4
   mocktail: ^0.2.0
   very_good_analysis: ^2.4.0
 
 flutter:
   uses-material-design: true
-  generate: true
+
+  assets:
+    - assets/weather/
+    

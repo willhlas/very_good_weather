@@ -8,10 +8,15 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:very_good_weather/client/meta_weather_client.dart';
+import 'package:very_good_weather/repository/weather_repository.dart';
 
 class AppBlocObserver extends BlocObserver {
+
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
@@ -23,18 +28,32 @@ class AppBlocObserver extends BlocObserver {
     log('onError(${bloc.runtimeType}, $error, $stackTrace)');
     super.onError(bloc, error, stackTrace);
   }
+  
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap(
+  FutureOr<Widget> Function(WeatherRepository weatherRepository) builder,
+) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
   await runZonedGuarded(
     () async {
-      await BlocOverrides.runZoned(
-        () async => runApp(await builder()),
+      WidgetsFlutterBinding.ensureInitialized();
+      final storage = await HydratedStorage.build(
+        storageDirectory: await getTemporaryDirectory(),
+      );
+      await HydratedBlocOverrides.runZoned(() async 
+        => runApp(
+          await builder(
+            WeatherRepository(
+              MetaWeatherClient(http.Client()),
+            ),
+          ),
+        ),
         blocObserver: AppBlocObserver(),
+        storage: storage,
       );
     },
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
