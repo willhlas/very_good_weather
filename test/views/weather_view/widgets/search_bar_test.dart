@@ -136,6 +136,31 @@ void main() {
       }
     );
 
+    testWidgets('calls getLocation onChanged', (tester) async {
+      when(() => weatherCubit.state).thenReturn(const WeatherState(
+        searchLocation: location,
+      ),);
+      when(() => weatherCubit.getLocation(any())).thenAnswer((_) async {});
+      await tester.pumpApp(
+        MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: temperatureUnitsCubit),
+            BlocProvider.value(value: weatherCubit),
+          ],
+          child: SearchBar(state: weatherCubit.state),
+        ),
+      );
+      await tester.runAsync(() async {
+        await tester.enterText(
+          find.byKey(const Key('searchBarKey')),
+          'Seattle',
+        );
+        await Future<void>.delayed(const Duration(milliseconds: 800));
+      });
+      await tester.pumpAndSettle();
+      verify(() => weatherCubit.getLocation('Seattle')).called(1);
+    });
+
     testWidgets('calls getWeather when TextButton is pressed', (tester) async {
       when(() => weatherCubit.state).thenReturn(const WeatherState(
         searchLocation: location,
