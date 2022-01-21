@@ -350,6 +350,7 @@ void main() {
         },
         build: () => mockHydratedStorage(() => WeatherCubit(weatherRepository)),
         seed: () => const WeatherState(
+          status: WeatherStatus.success,
           location: Location(title: 'Minneapolis', woeid: 1),
         ),
         act: (cubit) => cubit.refresh(),
@@ -365,6 +366,7 @@ void main() {
         },
         build: () => mockHydratedStorage(() => WeatherCubit(weatherRepository)),
         seed: () => const WeatherState(
+          status: WeatherStatus.success,
           location: Location(title: 'Minneapolis', woeid: 1),
         ),
         act: (cubit) => cubit.refresh(),
