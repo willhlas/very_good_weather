@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_weather/client/meta_weather_client.dart';
-import 'package:very_good_weather/models/location.dart';
-import 'package:very_good_weather/models/weather.dart';
+import 'package:very_good_weather/models/models.dart';
 import 'package:very_good_weather/repository/weather_repository.dart';
 
 class MockMetaWeatherClient extends Mock implements MetaWeatherClient {}
@@ -11,18 +10,19 @@ class MockLocation extends Mock implements Location {}
 
 class MockWeather extends Mock implements Weather {}
 
-const woeid = 1;
-const title = 'Minneapolis';
-const datePath = '2021/01/17';
-const weatherStateName = 'Snow';
-const weatherStateAbbr = 'sn';
-const windSpeed = 18.123;
-const theTemp = 0.0;
-const humidity = 76;
 
 void main() {
   group('WeatherRepository', () {
 
+    const woeid = 1;
+    const title = 'Minneapolis';
+    const datePath = '2021/01/17';
+    const weatherStateName = 'Snow';
+    const weatherStateAbbr = 'sn';
+    const windSpeed = 18.123;
+    const theTemp = 0.0;
+    const humidity = 76;
+    
     late MetaWeatherClient client;
     late Location location;
     late Weather weather;

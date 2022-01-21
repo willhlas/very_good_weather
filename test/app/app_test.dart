@@ -11,6 +11,7 @@ class MockWeatherRepository extends Mock implements WeatherRepository {}
 
 void main() {
   group('VeryGoodWeatherApp', () {
+
     late WeatherRepository weatherRepository;
 
     setUp(() {
@@ -25,9 +26,11 @@ void main() {
       });
       expect(find.byType(VeryGoodWeatherAppView), findsOneWidget);
     });
+
   });
 
   group('VeryGoodWeatherAppView', () {
+
     late WeatherRepository weatherRepository;
 
     setUp(() {
@@ -45,9 +48,11 @@ void main() {
       });
       expect(find.byType(WeatherPage), findsOneWidget);
     });
+
   });
 
   group('WeatherPage', () {
+
     late WeatherRepository weatherRepository;
 
     setUp(() {
@@ -65,5 +70,7 @@ void main() {
       });
       expect(find.byType(WeatherView), findsOneWidget);
     });
+
   });
+  
 }

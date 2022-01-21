@@ -2,8 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:very_good_weather/client/meta_weather_client.dart';
-import 'package:very_good_weather/models/location.dart';
-import 'package:very_good_weather/models/weather.dart';
+import 'package:very_good_weather/models/models.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
 
@@ -14,6 +13,10 @@ class FakeUri extends Fake implements Uri {}
 void main() {
   group('MetaWeatherClient', () {
 
+    const woeid = 1;
+    const title = 'Minneapolis';
+    const datePath = '2021/01/17';
+    
     late http.Client client;
     late http.Response response;
     late MetaWeatherClient metaWeatherClient;
@@ -30,19 +33,17 @@ void main() {
 
     group('locationSearch', () {
 
-      const query = 'Minneapolis';
-      
       test('client gets correct Uri.https request', () async {
         when(() => client.get(any())).thenAnswer((_) async => response);
         try {
-          await metaWeatherClient.locationSearch(query);
+          await metaWeatherClient.locationSearch(title);
         } catch (_) {}
         verify(
           () => client.get(
             Uri.https(
               'www.metaweather.com',
               '/api/location/search',
-              <String, dynamic>{'query': query},
+              <String, dynamic>{'query': title},
             ),
           ),
         ).called(1);
@@ -52,7 +53,7 @@ void main() {
         when(() => response.statusCode).thenReturn(400);
         when(() => client.get(any())).thenAnswer((_) async => response);
         expect(
-          () => metaWeatherClient.locationSearch(query),
+          () => metaWeatherClient.locationSearch(title),
           throwsException,
         );
       });
@@ -62,7 +63,7 @@ void main() {
         when(() => response.body).thenReturn('[]');
         when(() => client.get(any())).thenAnswer((_) async => response);
         expect(
-          () => metaWeatherClient.locationSearch(query),
+          () => metaWeatherClient.locationSearch(title),
           throwsA(isA<LocationNotFoundException>()),
         );
       });
@@ -78,7 +79,7 @@ void main() {
           ''',
         );
         when(() => client.get(any())).thenAnswer((_) async => response);
-        final actual = await metaWeatherClient.locationSearch(query);
+        final actual = await metaWeatherClient.locationSearch(title);
         expect(
           actual,
           isA<Location>()
@@ -89,8 +90,6 @@ void main() {
     });
 
     group('getWeatherByWoeid', () {
-
-      const woeid = 1;
 
       test('client gets correct Uri.https request', () async {
         when(() => client.get(any())).thenAnswer((_) async => response);
@@ -171,9 +170,6 @@ void main() {
     });
   
     group('getWeatherByWoeidAndDate', () {
-
-      const woeid = 1;
-      const datePath = '2021/01/17';
 
       test('client gets correct Uri.https request', () async {
         when(() => client.get(any())).thenAnswer((_) async => response);

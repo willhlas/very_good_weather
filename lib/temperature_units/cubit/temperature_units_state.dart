@@ -14,11 +14,8 @@ class TemperatureUnitsState extends Equatable {
 
   final TemperatureUnitsType unitsType;
 
-  TemperatureUnitsState copyWith({
-    TemperatureUnitsType? unitsType,
-  }) => TemperatureUnitsState(
-    unitsType: unitsType ?? this.unitsType,
-  );
+  TemperatureUnitsState copyWith(TemperatureUnitsType unitsType) => 
+    TemperatureUnitsState(unitsType: unitsType);
 
   Map<String, dynamic> toJson() => _$TemperatureUnitsStateToJson(this);
 

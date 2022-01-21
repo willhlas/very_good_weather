@@ -10,11 +10,11 @@ import '../../helpers/helpers.dart';
 class MockTemperatureUnitsCubit extends MockCubit<TemperatureUnitsState>
   implements TemperatureUnitsCubit {}
 
-const value = 5.0;
-const textStyle = TextStyle();
-
 void main() {
   group('Temperature', () {
+
+    const value = 5.0;
+    const textStyle = TextStyle();
 
     late TemperatureUnitsCubit cubit;
 

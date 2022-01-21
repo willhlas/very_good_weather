@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_weather/models/weather.dart';
+import 'package:very_good_weather/models/models.dart' show Weather;
 
 void main() {
   group('Weather', () {
@@ -9,6 +9,7 @@ void main() {
     const windSpeed = 18.123;
     const theTemp = 0.0;
     const humidity = 76;
+    
     late DateTime applicableDate;
     late Weather weather;
     late Map<String, dynamic> json;
@@ -42,4 +43,5 @@ void main() {
     });
 
   });
+
 }

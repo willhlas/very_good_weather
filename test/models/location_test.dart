@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:very_good_weather/models/location.dart';
+import 'package:very_good_weather/models/models.dart' show Location;
 
 void main() {
   group('Location', () {

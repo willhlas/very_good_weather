@@ -43,16 +43,16 @@ void main() {
 
   group('WeatherView', () {
 
-    const location = Location(
-      woeid: 1,
-      title: 'Minneapolis',
-    );
-
     const weatherStateName = 'Snow';
     const weatherStateAbbr = 'sn';
     const windSpeed = 18.123;
     const theTemp = 0.0;
     const humidity = 76;
+
+    const location = Location(
+      woeid: 1,
+      title: 'Minneapolis',
+    );
 
     late DateTime applicableDate;
     late Weather weather;
@@ -88,6 +88,8 @@ void main() {
             child: const WeatherView(),
           ),
         );
+        await tester.tap(find.text('Search a city for weather!'));
+        await tester.pumpAndSettle();
         expect(find.byType(WeatherStateWidget), findsOneWidget);
         expect(find.text('Search a city for weather!'), findsOneWidget);
       }

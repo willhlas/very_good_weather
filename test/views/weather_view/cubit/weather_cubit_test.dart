@@ -16,16 +16,16 @@ class FakeLocation extends Fake implements Location {}
 
 class MockWeather extends Mock implements Weather {}
 
-const woeid = 1;
-const title = 'Minneapolis';
-const weatherStateName = 'Snow';
-const weatherStateAbbr = 'sn';
-const windSpeed = 18.123;
-const theTemp = 2.523;
-const humidity = 76;
-
 void main() {
   group('WeatherCubit', () {
+
+    const woeid = 1;
+    const title = 'Minneapolis';
+    const weatherStateName = 'Snow';
+    const weatherStateAbbr = 'sn';
+    const windSpeed = 18.123;
+    const theTemp = 2.523;
+    const humidity = 76;
 
     late DateTime applicableDate;
     late WeatherRepository weatherRepository;
@@ -77,6 +77,65 @@ void main() {
         expect(
           cubit.fromJson(cubit.toJson(cubit.state)),
           cubit.state,
+        );
+      });
+    });
+
+    test('toJson and fromJson with Weather, Location, and Forecast', () {
+      mockHydratedStorage(() {
+        final cubit = WeatherCubit(weatherRepository);
+        final state = cubit.state.copyWith(
+          weather: Weather(
+            applicableDate: applicableDate,
+            weatherStateName: weatherStateName,
+            weatherStateAbbr: weatherStateAbbr,
+            windSpeed: windSpeed,
+            theTemp: theTemp,
+            humidity: humidity,
+          ),
+          location: const Location(
+            woeid: woeid,
+            title: title,
+          ),
+          forecast: <Weather>[
+            Weather(
+              applicableDate: applicableDate,
+              weatherStateName: weatherStateName,
+              weatherStateAbbr: weatherStateAbbr,
+              windSpeed: windSpeed,
+              theTemp: theTemp,
+              humidity: humidity,
+            ),
+          ],
+        );
+        final json = <String, dynamic>{
+          'status': 'initial',
+          'weather': {
+            'applicable_date': applicableDate.toIso8601String(),
+            'weather_state_name': weatherStateName,
+            'weather_state_abbr': weatherStateAbbr,
+            'wind_speed': windSpeed,
+            'the_temp': theTemp,
+            'humidity': humidity,
+          },
+          'location': {
+            'woeid': woeid,
+            'title': title,
+          },
+          'forecast': [
+            {
+              'applicable_date': applicableDate.toIso8601String(),
+              'weather_state_name': weatherStateName,
+              'weather_state_abbr': weatherStateAbbr,
+              'wind_speed': windSpeed,
+              'the_temp': theTemp,
+              'humidity': humidity,
+            }
+          ],
+        };
+        expect(
+          cubit.fromJson(json),
+          state,
         );
       });
     });

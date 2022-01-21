@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:very_good_weather/models/location.dart';
-import 'package:very_good_weather/temperature_units/cubit/temperature_units_cubit.dart';
+import 'package:very_good_weather/models/models.dart' show Location;
+import 'package:very_good_weather/temperature_units/temperature_units.dart';
 import 'package:very_good_weather/weather_view/weather_view.dart';
 
 import '../../../helpers/helpers.dart';

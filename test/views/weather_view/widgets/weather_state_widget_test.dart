@@ -4,11 +4,11 @@ import 'package:very_good_weather/weather_view/weather_view.dart';
 
 import '../../../helpers/helpers.dart';
 
-const message = 'test-message';
-
 void main() {
 
   group('WeatherStateWidget', () {
+
+    const message = 'test-message';
 
     testWidgets('renders message', (tester) async {
       await tester.pumpApp(const WeatherStateWidget(message: message));

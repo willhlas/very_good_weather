@@ -5,8 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:very_good_weather/models/weather.dart';
-import 'package:very_good_weather/temperature_units/cubit/temperature_units_cubit.dart';
+import 'package:very_good_weather/models/models.dart' show Weather;
+import 'package:very_good_weather/temperature_units/temperature_units.dart';
 import 'package:very_good_weather/weather_view/weather_view.dart';
 
 import '../../../helpers/helpers.dart';

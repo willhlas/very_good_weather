@@ -11,9 +11,9 @@ class TemperatureUnitsCubit extends HydratedCubit<TemperatureUnitsState> {
 
   void changeUnits() {
     if (state.unitsType == TemperatureUnitsType.celsius) {
-      emit(state.copyWith(unitsType: TemperatureUnitsType.fahrenheit));
+      emit(state.copyWith(TemperatureUnitsType.fahrenheit));
     } else {
-      emit(state.copyWith(unitsType: TemperatureUnitsType.celsius));
+      emit(state.copyWith(TemperatureUnitsType.celsius));
     }
   }
 
