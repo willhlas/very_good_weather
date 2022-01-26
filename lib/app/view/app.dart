@@ -13,17 +13,12 @@ import 'package:very_good_weather/weather_view/weather_view.dart';
 
 class VeryGoodWeatherApp extends StatelessWidget {
 
-  const VeryGoodWeatherApp({
-    Key? key,
-    required this.weatherRepository,
-  }) : super(key: key);
-
-  final WeatherRepository weatherRepository;
+  const VeryGoodWeatherApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: weatherRepository,
+    return RepositoryProvider<WeatherRepository>(
+      create: (_) => WeatherRepository(),
       child: const VeryGoodWeatherAppView(),
     );
   }

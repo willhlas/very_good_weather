@@ -32,7 +32,7 @@ void main() {
       client = MockMetaWeatherClient();
       location = MockLocation();
       weather = MockWeather();
-      weatherRepository = WeatherRepository(client);
+      weatherRepository = WeatherRepository(metaWeatherClient: client);
     });
 
     group('getLocation', () {

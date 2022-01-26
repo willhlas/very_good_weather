@@ -12,16 +12,10 @@ class MockWeatherRepository extends Mock implements WeatherRepository {}
 void main() {
   group('VeryGoodWeatherApp', () {
 
-    late WeatherRepository weatherRepository;
-
-    setUp(() {
-      weatherRepository = MockWeatherRepository();
-    });
-
     testWidgets('renders VeryGoodWeatherAppView', (tester) async {
       await mockHydratedStorage(() async {
         await tester.pumpWidget(
-          VeryGoodWeatherApp(weatherRepository: weatherRepository),
+          const VeryGoodWeatherApp(),
         );
       });
       expect(find.byType(VeryGoodWeatherAppView), findsOneWidget);

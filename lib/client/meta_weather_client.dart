@@ -7,16 +7,18 @@ class LocationNotFoundException implements Exception {}
 
 class MetaWeatherClient {
 
-  MetaWeatherClient(this.client);
+  MetaWeatherClient({
+    http.Client? client,
+  }) : _client = client ?? http.Client();
 
-  final http.Client client;
+  late final http.Client _client;
   static const baseUrl = 'www.metaweather.com';
 
   Future<Location> locationSearch(String query) async {
     final request = Uri.https(baseUrl, '/api/location/search', <String, dynamic>{
       'query': query,
     });
-    final response = await client.get(request);
+    final response = await _client.get(request);
     if (response.statusCode != 200) throw Exception('Location Request Failed!');
     final jsonBody = jsonDecode(response.body) as List;
     if (jsonBody.isEmpty) throw LocationNotFoundException();
@@ -25,7 +27,7 @@ class MetaWeatherClient {
 
   Future<Weather> getWeatherByWoeid(int woeid) async {
     final request = Uri.https(baseUrl, '/api/location/$woeid');
-    final response = await client.get(request);
+    final response = await _client.get(request);
     if (response.statusCode != 200) throw Exception('Weather Request Failed');
     final jsonBody = jsonDecode(response.body) as Map<String, dynamic>;
     if (jsonBody.isEmpty) throw Exception('Weather Data Failure');
@@ -38,7 +40,7 @@ class MetaWeatherClient {
     int woeid, String datePath,
   ) async {
     final request = Uri.https(baseUrl, '/api/location/$woeid/$datePath');
-    final response = await client.get(request);
+    final response = await _client.get(request);
     if (response.statusCode != 200) {
       throw Exception('Weather Request By Date Failed');
     }

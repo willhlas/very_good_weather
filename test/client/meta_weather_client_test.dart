@@ -28,7 +28,7 @@ void main() {
     setUp(() {
       client = MockHttpClient();
       response = MockResponse();
-      metaWeatherClient = MetaWeatherClient(client);
+      metaWeatherClient = MetaWeatherClient(client: client);
     });
 
     group('locationSearch', () {

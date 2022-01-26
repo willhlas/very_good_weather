@@ -4,17 +4,20 @@ import 'package:very_good_weather/models/models.dart';
 
 class WeatherRepository {
 
-  WeatherRepository(this.metaWeatherClient);
+  WeatherRepository({
+    MetaWeatherClient? metaWeatherClient,
+  }) : _metaWeatherClient = metaWeatherClient 
+        ?? MetaWeatherClient();
 
-  final MetaWeatherClient metaWeatherClient;
+  late final MetaWeatherClient _metaWeatherClient;
 
   Future<Location> getLocation(String query) async =>
-    metaWeatherClient.locationSearch(query);
+    _metaWeatherClient.locationSearch(query);
   
   Future<Weather?> getWeather(Location location, {String? datePath}) async {
     final weather = datePath == null
-      ? await metaWeatherClient.getWeatherByWoeid(location.woeid)
-      : await metaWeatherClient.getWeatherByWoeidAndDate(
+      ? await _metaWeatherClient.getWeatherByWoeid(location.woeid)
+      : await _metaWeatherClient.getWeatherByWoeidAndDate(
           location.woeid, datePath,
         );
     return weather;
